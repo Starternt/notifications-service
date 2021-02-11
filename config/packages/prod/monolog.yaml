@@ -1,0 +1,33 @@
+monolog:
+    handlers:
+        main:
+            type: fingers_crossed
+            action_level: info
+            handler: gelf
+            excluded_404s:
+                # regex: exclude all 404 errors from the logs
+                - ^/
+
+        console:
+            type: console
+            process_psr_3_messages: false
+            channels: ["!event"]
+
+        gelf:
+            type: gelf
+            publisher:
+                hostname: '127.0.0.1'
+                port: '9090'
+            level: 'notice'
+            formatter: app.gelf_formatter
+
+        deprecation:
+            type: stream
+            path: "php://stdout"
+
+        deprecation_filter:
+            type: filter
+            handler: deprecation
+            max_level: info
+            channels: ["php"]
+

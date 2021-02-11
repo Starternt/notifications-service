@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+test $CONSUL_HTTP_ADDR || CONSUL_HTTP_ADDR=localhost:8500
+
+echo "Generate consul-template configuration file"
+envsubst < /etc/consul-template/conf.hcl.tpl > /etc/consul-template/conf.hcl
+
+echo "Generate application configuration files"
+consul-template -config /etc/consul-template/conf.hcl -once
+
+chown -R www-data:www-data /var/www/html/var/
+
+exec "$@"
