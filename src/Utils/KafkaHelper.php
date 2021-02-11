@@ -10,17 +10,18 @@ trait KafkaHelper
     /**
      * @param string $host
      * @param string $port
+     * @param string $topic
      *
      * @return Consumer
      */
-    public function configureConsumer(string $host, string $port): Consumer
+    public function configureConsumer(string $host, string $port, string $topic): Consumer
     {
         $config = ConsumerConfig::getInstance();
         $config->setMetadataRefreshIntervalMs(10000);
         $config->setMetadataBrokerList($host.':'.$port);
-        $config->setGroupId('notification-activation-links');
+        $config->setGroupId($topic);
         $config->setBrokerVersion('1.0.0');
-        $config->setTopics(['notification-activation-links']);
+        $config->setTopics([$topic]);
         $config->setOffsetReset('earliest');
 
         return new Consumer();

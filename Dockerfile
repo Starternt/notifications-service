@@ -30,6 +30,7 @@ ENV APP_DEBUG=false
 ENV LOG_OUTPUT=stream
 ENV LOG_LEVEL=WARNING
 ENV CLUSTER=production
+ENV MAILER_URL=gmail://login:password@localhost
 
 ENTRYPOINT ["entry-point"]
 CMD ["consul-template", "-config", "/etc/consul-template/conf.hcl", "-exec", "php-fpm", "supervisord", "--configuration", "/etc/supervisord.conf"]
