@@ -90,7 +90,7 @@ class EmailLinkCommand extends Command
                 ];
 
                 $message
-                    ->setSubject('Activation link interlife')
+                    ->setSubject('Activation link')
                     ->setFrom('test@gmail.com')
                     ->setTo(
                         $value['email']
